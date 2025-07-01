@@ -11,19 +11,19 @@ const emit = defineEmits(['login', 'activarMensajes'])
 
 <template>
   <div class="greetings">
-    <h1 class="green">{{ msg }}</h1>
+    <h1>{{ msg }}</h1>
     <h3>
       <button @click="emit('login')">Login</button>
       &nbsp;
-      <button @click="emit('activarMensajes')">Generar Token</button>
+      <button @click="emit('activarMensajes')">Generar Token (para pruebas)</button>
     </h3>
   </div>
 </template>
 
 <style scoped>
 h1 {
-  font-weight: 500;
-  font-size: 2.6rem;
+  font-weight: 600;
+  font-size: 4rem;
   position: relative;
   top: -10px;
 }
@@ -47,6 +47,19 @@ button {
   border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
+  font-family:
+      Inter,
+      -apple-system,
+      BlinkMacSystemFont,
+      'Segoe UI',
+      Roboto,
+      Oxygen,
+      Ubuntu,
+      Cantarell,
+      'Fira Sans',
+      'Droid Sans',
+      'Helvetica Neue',
+      sans-serif;
 }
 
 button:hover {
