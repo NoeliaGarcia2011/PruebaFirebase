@@ -26,7 +26,7 @@ const activarMensajes = async () => {
 
   //Escucha los mensajes entrantes y muestra una notificación Toast con el cuerpo del mensaje
   onMessage(messaging, (message) => {
-    console.log('Tu mensaje: ', message);
+    console.log('Se ha enviado el siguiente mensaje: ', message.notification);
     myToast(message.notification.body);
   });
 
