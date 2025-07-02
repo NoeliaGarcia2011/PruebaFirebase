@@ -3,6 +3,7 @@ import HelloWorld from './components/HelloWorld.vue'
 import {getAuth, signInAnonymously} from 'firebase/auth' //Auth anónima Firebase
 import {getToken, onMessage} from 'firebase/messaging' //Parámetros necesarios para Cloud Messaging
 import {messaging} from '@/firebase.js' //Export de mensajes para esta app
+import { onMounted } from 'vue'
 import Toastify from 'toastify-js'
 import 'toastify-js/src/toastify.css'
 
@@ -20,13 +21,33 @@ const activarMensajes = async () => {
   //Si hay token lo imprime por consola
   token ? console.log('Token:', token) : console.log('No hay token');
 
+  console.log("Estado de permiso:", Notification.permission);
+  console.log("Escuchando mensajes...");
+
   //Escucha los mensajes entrantes y muestra una notificación Toast con el cuerpo del mensaje
   onMessage(messaging, (message) => {
     console.log('Tu mensaje: ', message);
     myToast(message.notification.body);
   });
 
+//   const sendNotification = httpsCallable(functions, 'sendNotification');
+//   sendNotification({
+//     title: '¡Hola!',
+//     body: 'Esta es una notificación de prueba',
+//     token: token,
+//   })
+//       .then((result) => {
+//         console.log('Notificación enviada correctamente:', result.data);
+//       })
+//       .catch((error) => {
+//         console.error('Error al enviar notificación:', error);
+//       });
+//
 };
+
+onMounted(() => {
+  activarMensajes()
+})
 
 //Configuración de las notificaciones Toast
 const myToast = (message) => {
@@ -35,11 +56,9 @@ const myToast = (message) => {
     duration: 7000,
     gravity: "top",
     position: "right",
-    close: true,
-    ariaLive: "polite",
     style: {
-      background: "#00bd7e",
-      color: "#000",
+      background: "#42b983",
+      color: "#ffffff",
       fontFamily: "Inter, sans-serif",
       borderRadius: "8px",
       padding: "12px 16px",
