@@ -1,17 +1,18 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import {getAuth, signInAnonymously} from 'firebase/auth' //Auth anónima Firebase
-import {getToken, onMessage} from 'firebase/messaging' //Parámetros necesarios para Cloud Messaging
-import {messaging} from '@/firebase.js' //Export de mensajes para esta app
-import { onMounted } from 'vue'
-import Toastify from 'toastify-js'
-import 'toastify-js/src/toastify.css'
+import HelloWorld from './components/HelloWorld.vue' //Componente de Vue
+import { getAuth, signInAnonymously } from 'firebase/auth' //Auth anónima Firebase
+import { getToken, onMessage } from 'firebase/messaging' //Parámetros necesarios para Cloud Messaging
+import { messaging } from '@/firebase.js' //Export de función de mensajes de la config para esta app
+import { onMounted } from 'vue' //Import de Vue para inicializar funciones una vez los elementos del DOM han cargado
+import Toastify from 'toastify-js' //Importamos Toastify para usarlo
+import 'toastify-js/src/toastify.css' //CSS de Toastify
 
 //Inicio de sesión anónima con una Promise
 const login = () => {
   signInAnonymously(getAuth()).then(usuario => console.log(usuario))
 };
 
+//Lógica de los mensajes
 const activarMensajes = async () => {
   //Solicita un token de registro para recibir notificaciones push usando la clave VAPID proporcionada
   const token = await getToken(messaging, {
@@ -21,12 +22,12 @@ const activarMensajes = async () => {
   //Si hay token lo imprime por consola
   token ? console.log('Token:', token) : console.log('No hay token');
 
-  console.log("Estado de permiso:", Notification.permission);
+  console.log("¿Notificaciones permitidas (granted) o denegadas (denied)?:", Notification.permission);
   console.log("Escuchando mensajes...");
 
   //Escucha los mensajes entrantes y muestra una notificación Toast con el cuerpo del mensaje
   onMessage(messaging, (message) => {
-    console.log('Se ha enviado el siguiente mensaje: ', message.notification);
+    console.log('Se ha enviado el siguiente mensaje:\n' + '"' + message.notification.title + '...' + '\n' + message.notification.body + '"' );
     myToast(message.notification.body);
   });
 
@@ -45,11 +46,12 @@ const activarMensajes = async () => {
 //
 };
 
+//Realiza la función de mostrar mensajes automáticamente al cargar todos los elementos del DOM
 onMounted(() => {
   activarMensajes()
 })
 
-//Configuración de las notificaciones Toast
+//Configuración de las notificaciones Toast, Toastificar el mensaje a imprimir
 const myToast = (message) => {
   Toastify({
     text: message,
@@ -60,7 +62,6 @@ const myToast = (message) => {
       background: "#42b983",
       color: "#ffffff",
       fontFamily: "Inter, sans-serif",
-      borderRadius: "8px",
       padding: "12px 16px",
       boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
     }

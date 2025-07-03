@@ -1,4 +1,5 @@
 <script setup>
+//Define la variable msg ("Probando Firebase" en App.vue)
 defineProps({
   msg: {
     type: String,
@@ -6,6 +7,7 @@ defineProps({
   },
 })
 
+//Define los eventos a emitir
 const emit = defineEmits(['login', 'activarMensajes'])
 </script>
 
@@ -13,6 +15,7 @@ const emit = defineEmits(['login', 'activarMensajes'])
   <div class="greetings">
     <h1>{{ msg }}</h1>
     <h3>
+      <!--Eventos onClick-->
       <button @click="emit('login')">Login</button>
       &nbsp;
       <button @click="emit('activarMensajes')">Generar Token (para pruebas)</button>
