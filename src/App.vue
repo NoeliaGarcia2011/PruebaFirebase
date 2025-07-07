@@ -14,15 +14,22 @@ const login = () => {
 
 //Lógica de los mensajes
 const activarMensajes = async () => {
+  const permission = await Notification.requestPermission();
+
+  console.log("¿Notificaciones permitidas (granted) o denegadas (denied)?:", permission);
+
+  if (permission !== 'granted') {
+    console.log("❌ notificaciones");
+    return;
+  }
+
   //Solicita un token de registro para recibir notificaciones push usando la clave VAPID proporcionada
   const token = await getToken(messaging, {
-    vapidKey: 'BKkCvX7DF3-6H-K7dsTwiNxbCfrjlgglvLcEuGkcV3CRTIAkrgC8Iduifv0FB2emj4SUDyS--ilpDGUD407bea0'
+    vapidKey: import.meta.env.VITE_FIREBASE_VAPID_KEY
   }).catch(error => console.log('Error: ', error));
-
   //Si hay token lo imprime por consola
-  token ? console.log('Token:', token) : console.log('No hay token');
 
-  console.log("¿Notificaciones permitidas (granted) o denegadas (denied)?:", Notification.permission);
+  token ? console.log('Token:', token) : console.log('No hay token');
   console.log("Escuchando mensajes...");
 
   //Escucha los mensajes entrantes y muestra una notificación Toast con el cuerpo del mensaje

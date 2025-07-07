@@ -27,7 +27,7 @@ setGlobalOptions({maxInstances: 10});
 
 //Variable con el mensaje y el token del dispositivo al que se envía la notificación
 const message = {
-    token: 'cqtB-pyiqQitw93dIOXKG5:APA91bGRxwq4cadmzp497pqaAqJBoocAUtU2eN8GTwCzBoT2T7N9ioaFeZMme1XXnlfh-XzB6_u5ClJi56tOXMXjnQRU5ULo1RXSXhkaA8oG4GAYkyC_cLw',
+    token: 'cqtB-pyiqQitw93dIOXKG5:APA91bHcddn3rr83y1I3_Bc1VL3FVHcsHlz5ove5zR2Xh5rnRk4T4dVtqaoyoFzR4PyvDSUhUW0xVrxsPATj-eVqP1NWzgD4qS7MOfC6zyagE924N0AtVrQ',
     notification: {
         title: 'On a night like tonight',
         body: 'Are we just two stars passing by?'
